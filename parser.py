@@ -6,25 +6,23 @@ nlp = spacy.load("en_core_web_sm")
 
 #function for extracting text from pdf with input path
 def extract_text_from_pdf(pdf_path):
-
-    
     text = ""
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
 
-    with pdfplumber.open(pdf_path) as pdf:
+            for page in pdf.pages:
 
-        for page in pdf.pages:
-
-            page_text = page.extract_text()
-            if page_text:
-                text += page_text + "\n"
-
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text + "\n"
+    except Exception as e:
+        print(f"Error extracting text from PDF: {e}")
     
     return text
 
 
 #function to extract name from text parsed
 def extract_name(text):
-
     """
     Extract name from first line which does not
     contain email or phone number
@@ -34,12 +32,11 @@ def extract_name(text):
 
     for line in lines:
         line = line.strip()
-
         if line and not re.search(r'@|\d', line):
             return line
         
-    
     doc = nlp(text)
+
     for ent in doc.ents:
         if ent.label_ == "PERSON":
             return ent.text
@@ -49,7 +46,6 @@ def extract_name(text):
 
 #function to extract email for parsed text
 def extract_email(text):
-
     mail = re.search(r"[\w\.-]+@[\w\.-]+\.\w+", text)
     
     if mail:
@@ -59,7 +55,6 @@ def extract_email(text):
 
 
 #function to extract skills
-
 def extract_skills(text):
 
     doc = nlp(text)
@@ -72,9 +67,6 @@ def extract_skills(text):
         for skill in match[1].split(","):
             skills.add(skill.strip().capitalize())
     
-    
-    
-    
     skill_labels = ["ORG", "PRODUCT", "SKILL", "WORK_OF_ART"]
 
     for ent in doc.ents:
@@ -82,3 +74,14 @@ def extract_skills(text):
             skills.add(ent.text.strip())
 
     return list(set(skills))
+
+
+#function for parsing
+def parse_resume(path):
+    text = extract_text_from_pdf(path)
+
+    return{
+        "name": extract_name(text),
+        "email": extract_email(text),
+        "skills": extract_skills(text)
+    }
