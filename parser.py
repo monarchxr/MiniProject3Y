@@ -7,18 +7,21 @@ nlp = spacy.load("en_core_web_sm")
 #function for extracting text from pdf with input path
 def extract_text_from_pdf(pdf_path):
     text = ""
+
     try:
         with pdfplumber.open(pdf_path) as pdf:
-
-            for page in pdf.pages:
-
+            pages = pdf.pages
+            for page in pages:
                 page_text = page.extract_text()
                 if page_text:
                     text += page_text + "\n"
+                else:
+                    text += "\n"
     except Exception as e:
-        print(f"Error extracting text from PDF: {e}")
-    
+        print(f"Error occurred while extracting text from PDF: {e}")
+
     return text
+
 
 
 #function to extract name from text parsed
