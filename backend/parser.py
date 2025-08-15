@@ -26,24 +26,30 @@ def extract_text_from_pdf(pdf_path):
 
 #function to extract name from text parsed
 def extract_name(text):
-    """
-    Extract name from first line which does not
-    contain email or phone number
-    """
+    # first lets get all lines from the text
 
     lines = text.split("\n")
+
+    # usually the name is in the first 1-5 lines
+    # so we'll look for a line w/o email or phone
 
     for line in lines:
         line = line.strip()
         if line and not re.search(r'@|\d', line):
             return line
         
+    # if we dont find it,
+    # we'll use NER (named entity recognition) using spacy
+
     doc = nlp(text)
+
+    # traverse the entities until you find one matching with PERSON
 
     for ent in doc.ents:
         if ent.label_ == "PERSON":
             return ent.text
         
+    # if nothing found
     return None
 
 
