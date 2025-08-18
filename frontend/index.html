@@ -8,9 +8,9 @@
     <body>
         <h1>Resume Parser and Job & Skill recommender</h1>
 
-        <form id="resume_form">
+        <form id="resume_form" enctype="multipart/form-data">
             <label>Upload Resume: </label>
-            <input type="file" id="resume" name="resume" required/>
+            <input type="file" id="resume" name="resume" accept="application/pdf" required/>
             <br><br>
             <label>Desired Job Role: </label>
             <input type="text" id="job_role" name="job_role">
