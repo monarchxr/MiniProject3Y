@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import os
+from backend.starter import process_resume
 
 app = Flask(__name__, template_folder="frontend")
 
@@ -26,3 +27,4 @@ def receive_resume():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    process_resume("backend/uploads")
