@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import os
-from backend.starter import process_resume
+from backend.parser import parse_resume
 
 app = Flask(__name__, template_folder="frontend")
 
@@ -12,6 +12,8 @@ app = Flask(__name__, template_folder="frontend")
 upload_folder = "backend/uploads"
 os.makedirs(upload_folder, exist_ok=True)
 
+resume_path = ""
+
 @app.route("/", methods=['GET','POST'])
 def receive_resume():
     if request.method == 'POST':
@@ -20,6 +22,7 @@ def receive_resume():
 
         res_path = os.path.join(upload_folder, resume.filename)
         resume.save(res_path)
+        parse_resume(res_path)
 
         return "Resume uploaded successfully"
     
@@ -27,4 +30,4 @@ def receive_resume():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    process_resume("backend/uploads")
+    # parse_resume(resume_path)
