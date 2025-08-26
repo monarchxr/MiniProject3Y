@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html>
+
     <head>
-        <title>Resume Parser and Job & Skill recommender</title>
-        
+        <title>ResuMate</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        <h1>Resume Parser and Job & Skill recommender</h1>
 
-        <form id="resume_form" action="/" method="post" enctype="multipart/form-data">
-            <label>Upload Resume: </label>
-            <input type="file" id="resume" name="resume" accept="application/pdf" required/>
-            <br><br>
-            <label>Desired Job Role: </label>
-            <input type="text" id="job_role" name="job_role">
-            <br><br>
-            <button id="submit_button">Submit Resume</button>
-        </form>
-        
+       <div id="container">
+
+            <div id="card-container">
+
+                <div id="heading-container">
+                    <h1 id="main-heading">ResuMate</h1>
+                    <h3 id="secondary-heading">An Intelligent Resume Parser and Analyzer</h3>
+                </div>
+
+                <div id="form-container">
+                    <form id="resume_form" action="/" method="post" enctype="multipart/form-data">
+                    <label>Upload Resume: </label>
+                    <input type="file" id="resume" name="resume" accept="application/pdf" required/>
+                    <br><br>
+                    <label>Desired Job Role: </label>
+                    <input type="text" id="job_role" name="job_role">
+                    <br><br>
+                    <button id="submit_button">Submit Resume</button>
+                    </form>
+                </div>
+                
+            </div>
+
+        </div>
+
         <script src="script.js"></script>
+
     </body>
+
 </html>
