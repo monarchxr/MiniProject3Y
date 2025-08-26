@@ -89,8 +89,10 @@ def extract_skills(text):
 def parse_resume(path):
     text = extract_text_from_pdf(path)
 
-    return{
-        "name": extract_name(text),
-        "email": extract_email(text),
-        "skills": extract_skills(text)
-    }
+    # return{
+    #     "name": extract_name(text),
+    #     # "email": extract_email(text),
+    #     # "skills": extract_skills(text)
+    # }
+
+    print("Name: ", extract_name(text))

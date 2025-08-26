@@ -1,4 +1,4 @@
-from parser import parse_resume
+from backend.parser import parse_resume
 import json
 
 def process_resume(resume_file_path):
