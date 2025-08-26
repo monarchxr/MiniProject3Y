@@ -1,0 +1,41 @@
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: lightcyan;
+}
+
+#card-container{
+    border: 2px solid lightgray;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: azure;
+}
+
+#main-heading{
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+}
+
+#secondary-heading{
+    display: flex;
+    justify-content: center;
+}
+
+#form-container{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+#resume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
