@@ -95,4 +95,5 @@ def parse_resume(path):
     #     # "skills": extract_skills(text)
     # }
 
-    print("Name: ", extract_name(text))
+    print("Name: ", extract_name(text), end="\n")
+    print("Email: ", extract_email(text), end="\n")
