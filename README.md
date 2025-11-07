@@ -11,3 +11,4 @@ Testing:
 1. Tested name extraction on my own resume, its working (mine is on the first line)
 2. Will test on some sample ones
 3. It is printing name and email for now
+4. well i forgot how it all works, gonna "restart"
