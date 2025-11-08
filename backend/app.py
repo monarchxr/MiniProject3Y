@@ -1,15 +1,15 @@
 from flask import Flask, request, render_template
 import os
-from backend.parser import parse_resume
+from parser import parse_resume #(i already moved it to backend :D )
 
-app = Flask(__name__, template_folder="frontend")
+app = Flask(__name__, template_folder="../frontend")
 
 # @app.route("/", methods=['GET'])
 # def index():
 #     return render_template("index.html")
 
 
-upload_folder = "backend/uploads"
+upload_folder = "backend/uploads" #moved to backend
 os.makedirs(upload_folder, exist_ok=True)
 
 resume_path = ""
