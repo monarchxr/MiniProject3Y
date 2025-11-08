@@ -12,3 +12,5 @@ Testing:
 2. Will test on some sample ones
 3. It is printing name and email for now
 4. well i forgot how it all works, gonna "restart"
+5. going to restructure the project, apparently flask needs to have the css and js files within to access those
+6. also fixing skill extraction part in parser.py
