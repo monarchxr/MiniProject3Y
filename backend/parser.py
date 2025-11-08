@@ -62,6 +62,49 @@ def extract_email(text):
     
     return None
 
+ks = {
+    "python", "javascript", "c", "c++", "java", "c#", "go", "rust", "typescript",
+    "ruby", "php", "swift", "kotlin", "r", "scala", "matlab",
+
+    "react", "vue", "vue.js", "angular", "svelte", "next.js", "html", "css", "tailwind",
+    "bootstrap", "sass", "vite",
+
+    "node.js", "express", "django", "flask", "fastapi", "spring", "spring boot",
+    "laravel", ".net",
+
+    "mysql", "postgresql", "postgres", "mongodb", "redis", "dynamodb",
+    "cassandra", "sqlite", "oracle", "sql server",
+
+    "docker", "kubernetes", "k8s", "aws", "azure", "gcp", "jenkins", "ci/cd", "ansible",
+
+    "git","github", "gitlab", "bitbucket", "jira", "figma", "linux", "bash", "rest api",
+    "graphql", "microservices", "agile", "scrum", "junit", "pytest", "selenium", "postman",
+}
+
+def extract_skills_from_phrases(text):
+    skills = set()
+
+    patterns = [
+        r"(?:proficient in|experienced with|skilled in|knowledge of|expertise in)[\s:]+([^\n.;]+)",
+        r"(?:technologies|skills|tools|languages)[\s:]+([^\n]+)",
+        r"(?:technical skills|core competencies)[\s:]+([^\n]+)",
+    ]
+
+    for pattern in patterns:
+        matches = re.finditer(pattern, text, re.IGNORECASE)
+        for match in matches:
+            skill_text = match.group(1)
+
+            parts = re.split(r'[,;]|\band\b|\bor\b', skill_text)
+
+            for part in parts:
+                skill = part.strip()
+
+                if 2<len(skill)<30 and not skill.lower() in ["the", "and", "or", "with"]:
+                    skills.add(skill)
+    
+    return skills
+
 
 #function to extract skills
 def extract_skills(text):
@@ -69,18 +112,18 @@ def extract_skills(text):
     doc = nlp(text)
     skills = []
     
-    pattern = r"(proficient in|experienced with|skilled in|knowledge of)\s+([a-zA-Z0-9.,\s]+)"
-    matches = re.findall(pattern, text.lower())
+    # pattern = r"(proficient in|experienced with|skilled in|knowledge of)\s+([a-zA-Z0-9.,\s]+)"
+    # matches = re.findall(pattern, text.lower())
     
-    for match in matches:
-        for skill in match[1].split(","):
-            skills.add(skill.strip().capitalize())
+    # for match in matches:
+    #     for skill in match[1].split(","):
+    #         skills.add(skill.strip().capitalize())
     
     skill_labels = ["ORG", "PRODUCT", "SKILL", "WORK_OF_ART"]
 
     for ent in doc.ents:
         if ent.label_ in skill_labels:
-            skills.add(ent.text.strip())
+            skills.append(ent.text.strip())
 
     return list(set(skills))
 
@@ -97,3 +140,4 @@ def parse_resume(path):
 
     print("Name: ", extract_name(text), end="\n")
     print("Email: ", extract_email(text), end="\n")
+    print("Skills: ", extract_skills(text))
